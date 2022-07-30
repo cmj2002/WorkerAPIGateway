@@ -3,3 +3,6 @@ main="src/index.ts"
 
 compatibility_date = "2022-07-18"
 
+[[kv_namespaces]]
+  binding = "KV_DEFAULT"
+  id = "<Your ID>"

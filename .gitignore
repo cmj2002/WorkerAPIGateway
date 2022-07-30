@@ -11,3 +11,4 @@ yarn.lock
 # Files may includes credentials
 src/config.ts
 test
+wrangler.toml
