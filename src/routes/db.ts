@@ -138,7 +138,7 @@ db.get('/:name/:key', async (c)=> {
     const { name, key } = c.req.param();
     const kv = config.kvBinding(name, c.env);
     if(kv){
-        const res = await handlePut({action:'get',key:key}, kv);
+        const res = await handleGet({action:'get',key:key}, kv);
         return c.json(res.body, res.status);
     }else{
         return c.json({ error: 'Requested database not found' }, 404);
