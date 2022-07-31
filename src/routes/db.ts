@@ -120,6 +120,17 @@ async function handleList(body:DbRequest, kv: KVNamespace):Promise<handlerOutput
     };
 }
 
+db.get('/:name/:key', async (c)=> {
+    const { name, key } = c.req.param();
+    const kv = config.kvBinding(name, c.env);
+    if(kv){
+        const res = await handlePut({action:'get',key:key}, kv);
+        return c.json(res.body, res.status);
+    }else{
+        return c.json({ error: 'Requested database not found' }, 404);
+    }
+})
+
 db.post('/:name/', async (c) => {
     const name = c.req.param('name');
     const kv = config.kvBinding(name, c.env);
@@ -153,7 +164,7 @@ db.post('/:name/', async (c) => {
             }, 400);
         }
     }
-    return c.json({ error: 'Binding not found' }, 404);
+    return c.json({ error: 'Requested database not found' }, 404);
 });
 
 export {db};
