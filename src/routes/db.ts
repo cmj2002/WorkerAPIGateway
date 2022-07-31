@@ -8,6 +8,7 @@ type DbRequest = {
     key: string
     value?: string
     ttl?: number
+    safe?: boolean
 }
 
 interface handlerOutput {
@@ -37,6 +38,10 @@ function validateRequestBody(body: any): DbRequest {
     if (body.ttl && typeof body.ttl !== 'number') {
         throw new Error('Invalid ttl, must be a number');
     }
+    // validate safe
+    if (body.safe && typeof body.safe !== 'boolean') {
+        throw new Error('Invalid safe, must be a boolean');
+    }
     return body;
 }
 
@@ -61,7 +66,16 @@ async function handleGet(body:DbRequest, kv: KVNamespace):Promise<handlerOutput>
 }
 
 async function handlePut(body:DbRequest, kv: KVNamespace):Promise<handlerOutput> {
-    const { key, value, ttl } = body;
+    const { key, value, ttl, safe } = body;
+    if (safe) {
+        const oldValue = await kv.get(key);
+        if (oldValue) {
+            return {
+                status: 409,
+                body: { error: 'Key already exists' }
+            };
+        }
+    }
     if (value){
         if (ttl) {
             await kv.put(key, value, { expirationTtl: ttl });
@@ -131,7 +145,7 @@ db.get('/:name/:key', async (c)=> {
     }
 })
 
-db.post('/:name/', async (c) => {
+db.post('/:name', async (c) => {
     const name = c.req.param('name');
     const kv = config.kvBinding(name, c.env);
     if(kv){

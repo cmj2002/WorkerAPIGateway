@@ -39,8 +39,7 @@ export const config:APIConfig={
     // How to add a KV binding:
     // 1. Create a KV
     // 2. Bind the KV by editing `wrangler.toml`
-    // 3. Modify Env interface in `types.ts`
-    // 4. Add a new binding in the following function
+    // 3. Add a new binding in the following function
     kvBinding: function(name: string, env:Env): KVNamespace|undefined{
         switch(name){
             case 'default':
