@@ -27,6 +27,7 @@ interface User{
 }
 
 interface APIConfig{
+    publicAccess: Permission[]
     ACL: User[]
     kvBinding: (name: string, env:Env) => KVNamespace|undefined
     mailSettings:{

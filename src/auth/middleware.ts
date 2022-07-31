@@ -25,11 +25,19 @@ const extractUser = (req: Request) => {
 }
 
 export const authMiddleware = async (c:Context, next:Next) => {
+    const reqPath = getPathFromURL(c.req.url);
+    const reqMethod = c.req.method;
+
+    // Check if the route is public
+    const publicAccess = config.publicAccess.find(p => reqPath.startsWith(p.route) && p.method.includes(normalizeMethod(reqMethod)));
+    if(publicAccess){
+        await next();
+        return;
+    }
+
     // Extract user and token from Authorization as Basic Auth
     const auth = c.req.header('Authorization');
     if (auth) {
-        const reqPath = getPathFromURL(c.req.url);
-        const reqMethod = c.req.method;
         const user = extractUser(c.req);
         if (user) {
             const permission = user.permissions.find(p => reqPath.startsWith(p.route) && p.method.includes(normalizeMethod(reqMethod)));

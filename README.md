@@ -20,4 +20,7 @@ My APIs based on [Cloudflare Workers](https://workers.cloudflare.com/).
 ## TODO
 
 * [ ] Add more APIs.
-* [ ] Allow setting public access in config.
+    * [ ] `/cors` CORS for any website.
+    * [ ] `/svg` similar to [placeholders.dev](https://placeholders.dev/), but in typescript.
+* [x] Allow setting public access routes in config.
+* [ ] More friendly documentation.

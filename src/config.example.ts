@@ -22,11 +22,25 @@ export const config:APIConfig={
         }
     ],
 
+    // Permission for public access. 
+    // If a request matches any of the routes, it will be allowed without auth.
+    publicAccess: [
+        {
+            route: '/svg',
+            method: ALL_METHODS
+        },
+        {
+            route: '/cors',
+            method: ALL_METHODS
+        }
+    ],
+
     // KV binding for /db
     // How to add a KV binding:
-    // 1. Create a KV and bind it to your worker
-    // 2. Modify Env interface in `types.ts`
-    // 3. Add a new binding in the following function
+    // 1. Create a KV
+    // 2. Bind the KV by editing `wrangler.toml`
+    // 3. Modify Env interface in `types.ts`
+    // 4. Add a new binding in the following function
     kvBinding: function(name: string, env:Env): KVNamespace|undefined{
         switch(name){
             case 'default':
