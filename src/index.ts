@@ -3,6 +3,7 @@ import { authMiddleware } from './auth/middleware'
 import { Env } from './types';
 import { db } from './routes/db';
 import { mail } from './routes/mail';
+import { cors } from './routes/cors';
 
 const app = new Hono<Env>();
 
@@ -15,6 +16,7 @@ app.use('*', authMiddleware)
 // Nested route
 app.route('/db', db)
 app.route('/mail', mail)
+app.route('/cors', cors)
 
 app.notFound(async (c) => c.json({ error: 'Not such route' }, 404))
 app.onError((err, c) => c.json({ error: err.message }, 500))
