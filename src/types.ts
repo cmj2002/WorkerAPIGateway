@@ -1,5 +1,5 @@
 interface Env {
-    [key: string]: KVNamespace,
+    [key: string]: KVNamespace|string,
 }
 
 type METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD' ;
