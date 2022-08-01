@@ -60,7 +60,7 @@ Content-Type: application/json
   "action": "put",
   "key": "<string>",
   "value": "<string>",
-  "ttl": 30,
+  "ttl": 30, // int
   "safe": true
 }
 ```
@@ -88,8 +88,6 @@ Return the same result as `GET`. If the key does not exist, return a 404 error.
 
 Take the given `key` as prefix and return all keys that match the prefix.
 
-> Not tested yet.
-
 ```http
 POST /db/:name
 Content-Type: application/json
@@ -100,7 +98,20 @@ Content-Type: application/json
 }
 ```
 
-Return an array of keys on success.
+Return an array of keys on success:
+
+```json
+[
+  {
+    "name":"<string>", // key
+    "expiration":1667055717 // int, a timestamp
+  },
+  {
+    // key with no expiration
+    "name":"<string>"
+  }
+]
+```
 
 ## Send emails
 
