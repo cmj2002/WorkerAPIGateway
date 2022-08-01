@@ -12,3 +12,6 @@ yarn.lock
 src/config.ts
 test
 wrangler.toml
+
+# Custom hooks
+src/hook

@@ -26,10 +26,6 @@ export const config:APIConfig={
     // If a request matches any of the routes, it will be allowed without auth.
     publicAccess: [
         {
-            route: '/svg',
-            method: ALL_METHODS
-        },
-        {
             route: '/cors',
             method: ALL_METHODS
         }
@@ -43,7 +39,7 @@ export const config:APIConfig={
     kvBinding: function(name: string, env:Env): KVNamespace|undefined{
         switch(name){
             case 'default':
-                return env.KV_DEFAULT;
+                return env.KV_DEFAULT as KVNamespace;
             default:
                 return undefined;
         }
