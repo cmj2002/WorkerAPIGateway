@@ -48,7 +48,7 @@ export const authMiddleware = async (c:Context, next:Next) => {
                 return c.json({
                     error: 'Permission denied',
                     debug: {
-                        user,
+                        user: user.service,
                         acceptedPermissions: user.permissions,
                         requestedPermission: {
                             route: reqPath,
@@ -60,10 +60,7 @@ export const authMiddleware = async (c:Context, next:Next) => {
         } else{
             // Invalid user or token
             return c.json({
-                error: 'Invalid user or token',
-                debug: {
-                    user
-                }
+                error: 'Invalid user or token'
             }, 401);
         }
     }else{
