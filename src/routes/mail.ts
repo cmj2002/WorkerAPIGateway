@@ -32,14 +32,15 @@ type MailRequest = {
 
 const mail = new Hono<Env>();
 
-mail.post('/', async (c) => {
+mail.post('/:sender', async (c) => {
     try{
         // It's too hard to validate the request body, so we just assume it's valid
+        const { sender } = c.req.param();
         const body:MailRequest = await c.req.json();
 
         // Validate domain
-        if(!body.from.email.endsWith(`@${config.mailSettings.domain}`)){
-            return c.json({error: 'sender domain not allowed'}, 403);
+        if(body.from.email!==`${sender}@${config.mailSettings.domain}`){
+            return c.json({error: 'sender not allowed'}, 403);
         }
 
         const reqBody={
