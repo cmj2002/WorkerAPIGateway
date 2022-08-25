@@ -29,35 +29,6 @@ Use query parameter `follow=false` to disable following redirects.
 
 The response will be returned as is, except CORS headers.
 
-#### Covid19 Risk Area for Mainland China
-
-**This is not medical advice.**
-
-```http
-### Get the risk area of Covid19 in Mainland China.
-GET /db/covid-risk-area/data
-```
-
-```http
-### Get the latest <version> of data
-GET /db/covid-risk-area/latest
-```
-
-They return a JSON:
-
-```json
-{
-  "key": "<string>", // 'data' or 'latest'
-  "value": "<string>" // stringified JSON for 'data', string for 'latest'
-}
-```
-
-`version` is a string like `2022-08-01-10`, means the data is changed at 2022-08-01 10:00:00.
-
-Actually I store all versions of data for 90 days. If you need access to these data or want a JSON file of all data I collected, please send an email to `me@caomingjun.com`.
-
-To lower the request frequency, if your app need to check the update of data, you can contact me to get a webhook, so that you don't need to poll the API.
-
 ## Deploy your own
 
 1. Clone this repo.
