@@ -7,6 +7,20 @@ cors.all('/', async (c) => {
     const target=c.req.query('target');
     const redirect=(c.req.query('redirect')==='false')?false:true;
 
+    // Return 204 if the request is an OPTIONS request
+    if(c.req.method==='OPTIONS'){
+        return new Response(null, {
+            status: 204,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Credentials': 'true',
+                'Access-Control-Max-Age': '86400'
+            }
+        });
+    }
+
     if(target){
         // Copy everything from the request except url
         let toFetch=new Request(target, {
