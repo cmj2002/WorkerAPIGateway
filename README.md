@@ -1,5 +1,8 @@
 # Workers API Gateway
 
+> [!NOTE]
+> This repository has been archived, and I no longer maintain or use it.
+
 My APIs based on [Cloudflare Workers](https://workers.cloudflare.com/).
 
 ## Available APIs
